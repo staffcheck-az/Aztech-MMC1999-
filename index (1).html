@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="az" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aztech MMC | Yanğın Təhlükəsizliyi və Mühəndis Sistemləri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-fire-extinguisher text-red-500"></i>
+                <span>AZTECH <span class="text-red-500">MMC</span></span>
+            </a>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#xidmetler" class="hover:text-red-400 transition">Xidmətlər</a>
+                <a href="#layiheler" class="hover:text-red-400 transition">Görülən İşlər</a>
+                <a href="#elaqe" class="hover:text-red-400 transition">Qiymət Təklifi</a>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="tel:+994102141004" class="hidden sm:flex items-center gap-2 text-sm font-semibold text-slate-200 hover:text-white transition">
+                    <i class="fa-solid fa-phone text-red-500"></i> +994 10 214 10 04
+                </a>
+                <a href="https://wa.me/994102141004" target="_blank" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg font-semibold flex items-center gap-2 transition shadow">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Tünd və Aydın Fon) -->
+    <header style="background: linear-gradient(135deg, #090d16 0%, #1e293b 55%, #450a0a 100%);" class="text-white py-28 px-4 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="inline-block bg-red-600/20 text-red-400 border border-red-500/40 px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wide">
+                Lisenziyalı və Zəmanətli Xidmət
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold mt-6 leading-tight text-white drop-shadow">
+                Obyektlərinizin yanğın siqnalizasiya sistemlərinin təminatı
+            </h1>
+            <p class="text-slate-200 text-lg md:text-xl mt-6 max-w-2xl mx-auto leading-relaxed">
+                Aztech MMC olaraq yanğın siqnalizasiya, xəbərdarlıq, odadavamlı hopdurma, kamera və peşəkar işıqlandırma sistemlərinin qurulmasını həyata keçiririk.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#elaqe" class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition">
+                    Pulsuz Mühəndis Baxışı Sifariş Et
+                </a>
+                <a href="tel:+994102141004" class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 px-8 py-4 rounded-xl font-bold text-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone text-red-400"></i> +994 10 214 10 04
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Xidmətlər -->
+    <section id="xidmetler" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Əsas Xidmətlərimiz</h2>
+            <p class="text-slate-600 mt-3">Beynəlxalq standartlara uyğun layihələndirmə və quraşdırma</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                <div class="w-14 h-14 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-900">Yanğın Siqnalizasiyasının Qurulması</h3>
+                <p class="text-slate-600">Ünvanlı və konvensional tüstü, istilik və alov detektorlarının, idarəetmə panellərinin peşəkar montajı.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                <div class="w-14 h-14 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-900">Yanğın Xəbərdarlıqlarının Quraşdırılması</h3>
+                <p class="text-slate-600">Təhlükə anında avtomatik səsli bildiriş, sirena və təxliyə yönləndirmə sistemlərinin qurulması.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-900">Odadavamlı Hopdurma İşləri</h3>
+                <p class="text-slate-600">Metal və taxta konstruksiyaların yanğına davamlılığını artıran sertifikatlı xüsusi məhlul və boyalarla işlənməsi.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                <div class="w-14 h-14 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-900">Kamera (CCTV) Quraşdırılması</h3>
+                <p class="text-slate-600">IP və analoq müşahidə kameraları, gecə görüntüsü və mobil telefondan 24/7 canlı izləmə sistemləri.</p>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                <div class="w-14 h-14 bg-yellow-100 text-yellow-600 rounded-xl flex items-center justify-center text-2xl mb-6">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3 text-slate-900">İşıq Sistemlərinin Qurulması</h3>
+                <p class="text-slate-600">Qəza-təxliyə işıqlandırması, sənaye və obyekt daxili/xarici müasir LED işıq sistemlərinin montajı.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Görülən İşlər -->
+    <section id="layiheler" class="py-20 bg-slate-900 text-white px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold">Təhvil Verilmiş Layihələrimiz</h2>
+                <p class="text-slate-400 mt-3">Komandamız tərəfindən icra olunan real işlərdən nümunələr</p>
+            </div>
+            <div id="layiheler-listesi" class="grid md:grid-cols-3 gap-8">
+                <p class="text-slate-400 col-span-3 text-center">Layihələr yüklənir...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Müraciət Forması -->
+    <section id="elaqe" class="py-20 max-w-4xl mx-auto px-4">
+        <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-slate-200">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-900">Qiymət Təklifi Alın</h2>
+                <p class="text-slate-600 mt-2">Məlumatlarınızı qeyd edin, mühəndisimiz sizinlə əlaqə saxlasın.</p>
+            </div>
+
+            <form id="muraciet-form" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Adınız və Soyadınız *</label>
+                        <input type="text" id="ad_soyad" required placeholder="Məs: Əli Məmmədov" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-red-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Telefon Nömrəniz *</label>
+                        <input type="tel" id="telefon" required placeholder="050 000 00 00" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-red-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Hansı xidmət lazımdır? *</label>
+                    <select id="xidmet" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-red-500">
+                        <option value="Yanğın siqnalizasiyasının qurulması">Yanğın siqnalizasiyasının qurulması</option>
+                        <option value="Yanğın xəbərdarlıqlarının quraşdırılması">Yanğın xəbərdarlıqlarının quraşdırılması</option>
+                        <option value="Hopdurma işləri">Hopdurma işləri (Odadavamlı boya/məhlul)</option>
+                        <option value="Kamera quraşdırılması">Kamera quraşdırılması</option>
+                        <option value="İşıq sistemlərinin qurulması">İşıq sistemlərinin qurulması</option>
+                        <option value="Kompleks xidmət">Hamısı / Kompleks xidmət</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold mb-2">Əlavə qeyd (Obyektin sahəsi, ünvan və s.)</label>
+                    <textarea id="qeyd" rows="3" placeholder="Obyekt haqqında qısa məlumat..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-red-500"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-xl text-lg transition">
+                    Sorğunu Göndər
+                </button>
+                <p id="form-mesaj" class="text-center font-semibold hidden"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-10 text-center">
+        <p class="font-bold text-white text-lg">AZTECH MMC</p>
+        <p class="mt-2">Bakı, Azərbaycan | Tel: <a href="tel:+994102141004" class="text-white hover:underline">+994 10 214 10 04</a></p>
+        <p class="text-sm mt-4 text-slate-600">&copy; 2026 Aztech MMC. Bütün hüquqlar qorunur. | <a href="admin.html" class="hover:text-slate-400 underline">Admin</a></p>
+    </footer>
+
+    <script>
+        const SUPABASE_URL = 'https://gknglulmrnsegzjaqyor.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_6DuIUj4RePUHKcFm-eCV4g_Bc18dKRn';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function layiheleriYukle() {
+            const { data, error } = await supabaseClient.from('layiheler').select('*').order('created_at', { ascending: false });
+            const container = document.getElementById('layiheler-listesi');
+            
+            if (error || !data || data.length === 0) {
+                container.innerHTML = '<p class="text-slate-400 col-span-3 text-center">Hələ ki layihə əlavə edilməyib.</p>';
+                return;
+            }
+
+            container.innerHTML = data.map(item => `
+                <div class="bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-700">
+                    <img src="${item.sekil_url}" alt="${item.basliq}" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <span class="text-xs font-bold uppercase tracking-wider text-red-400">${item.kateqoriya}</span>
+                        <h3 class="text-xl font-bold mt-2">${item.basliq}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('muraciet-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const mesaj = document.getElementById('form-mesaj');
+            btn.disabled = true;
+            btn.innerText = 'Göndərilir...';
+
+            const { error } = await supabaseClient.from('muracietler').insert([{
+                ad_soyad: document.getElementById('ad_soyad').value,
+                telefon: document.getElementById('telefon').value,
+                xidmet: document.getElementById('xidmet').value,
+                qeyd: document.getElementById('qeyd').value
+            }]);
+
+            mesaj.classList.remove('hidden');
+            if (error) {
+                mesaj.className = 'text-center font-semibold text-red-600 mt-4';
+                mesaj.innerText = 'Xəta baş verdi: ' + error.message;
+            } else {
+                mesaj.className = 'text-center font-semibold text-green-600 mt-4';
+                mesaj.innerText = 'Müraciətiniz qəbul olundu! Tezliklə sizinlə əlaqə saxlanılacaq.';
+                document.getElementById('muraciet-form').reset();
+            }
+            btn.disabled = false;
+            btn.innerText = 'Sorğunu Göndər';
+        });
+
+        layiheleriYukle();
+    </script>
+</body>
+</html>
