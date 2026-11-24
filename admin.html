@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Aztech MMC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans">
+
+    <!-- Giriş Ekranı -->
+    <div id="login-section" class="min-h-screen flex items-center justify-center px-4">
+        <div class="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
+            <h1 class="text-2xl font-bold text-center mb-6">Aztech MMC — Admin Giriş</h1>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold mb-1">E-poçt</label>
+                    <input type="email" id="email" required class="w-full px-4 py-2.5 border rounded-xl">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Şifrə</label>
+                    <input type="password" id="password" required class="w-full px-4 py-2.5 border rounded-xl">
+                </div>
+                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl">Daxil Ol</button>
+                <p id="login-error" class="text-red-600 text-sm text-center hidden"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- İdarəetmə Paneli -->
+    <div id="dashboard-section" class="hidden max-w-6xl mx-auto px-4 py-8">
+        <div class="flex justify-between items-center bg-slate-900 text-white p-6 rounded-2xl mb-8">
+            <h1 class="text-xl font-bold">Aztech MMC İdarəetmə Paneli</h1>
+            <div class="flex gap-4">
+                <a href="index.html" target="_blank" class="bg-slate-700 px-4 py-2 rounded-lg text-sm">Sayta Bax</a>
+                <button id="logout-btn" class="bg-red-600 px-4 py-2 rounded-lg text-sm font-semibold">Çıxış</button>
+            </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Sol: Yeni Layihə Əlavə Et -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">Yeni Görülmüş İş Əlavə Et</h2>
+                <form id="layihe-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Layihənin Adı / Obyekt</label>
+                        <input type="text" id="l-basliq" required placeholder="Məs: Port Baku - Yanğın siqnalizasiyası" class="w-full px-3 py-2 border rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Xidmət Kateqoriyası</label>
+                        <select id="l-kateqoriya" class="w-full px-3 py-2 border rounded-lg">
+                            <option value="Yanğın Siqnalizasiyası">Yanğın Siqnalizasiyası</option>
+                            <option value="Yanğın Xəbərdarlığı">Yanğın Xəbərdarlığı</option>
+                            <option value="Hopdurma İşləri">Hopdurma İşləri</option>
+                            <option value="Kamera Sistemləri">Kamera Sistemləri</option>
+                            <option value="İşıq Sistemləri">İşıq Sistemləri</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1">Şəkil Seçin</label>
+                        <input type="file" id="l-sekil" accept="image/*" required class="w-full text-sm">
+                    </div>
+                    <button type="submit" id="l-btn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 rounded-lg">Sayta Əlavə Et</button>
+                </form>
+
+                <h3 class="font-bold mt-8 mb-3">Mövcud Layihələr</h3>
+                <div id="admin-layiheler" class="space-y-3 max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <!-- Sağ: Müştəri Müraciətləri -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm">
+                <h2 class="text-xl font-bold mb-4 border-b pb-2">Gələn Müştəri Sifarişləri</h2>
+                <div id="admin-muracietler" class="space-y-4 max-h-[600px] overflow-y-auto">
+                    <p class="text-slate-500">Yüklənir...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://gknglulmrnsegzjaqyor.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_6DuIUj4RePUHKcFm-eCV4g_Bc18dKRn';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const loginSec = document.getElementById('login-section');
+        const dashSec = document.getElementById('dashboard-section');
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                loginSec.classList.add('hidden');
+                dashSec.classList.remove('hidden');
+                loadAdminData();
+            } else {
+                loginSec.classList.remove('hidden');
+                dashSec.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) {
+                const errEl = document.getElementById('login-error');
+                errEl.innerText = 'E-poçt və ya şifrə yanlışdır!';
+                errEl.classList.remove('hidden');
+            } else {
+                checkUser();
+            }
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+            checkUser();
+        });
+
+        async function loadAdminData() {
+            const { data: muracietler } = await supabaseClient.from('muracietler').select('*').order('created_at', { ascending: false });
+            document.getElementById('admin-muracietler').innerHTML = muracietler?.length ? muracietler.map(m => `
+                <div class="p-4 border rounded-xl bg-slate-50 flex justify-between items-start">
+                    <div>
+                        <p class="font-bold text-lg">${m.ad_soyad} <span class="text-sm font-normal text-slate-500">(${new Date(m.created_at).toLocaleDateString('az-AZ')})</span></p>
+                        <p class="text-red-600 font-semibold">${m.telefon}</p>
+                        <p class="text-sm font-medium mt-1">Xidmət: ${m.xidmet}</p>
+                        ${m.qeyd ? `<p class="text-sm text-slate-600 mt-1">Qeyd: ${m.qeyd}</p>` : ''}
+                    </div>
+                    <button onclick="deleteMuraciet(${m.id})" class="text-red-500 hover:text-red-700 text-sm font-bold">Sil</button>
+                </div>
+            `).join('') : '<p class="text-slate-500">Hələ sifariş yoxdur.</p>';
+
+            const { data: layiheler } = await supabaseClient.from('layiheler').select('*').order('created_at', { ascending: false });
+            document.getElementById('admin-layiheler').innerHTML = layiheler?.map(l => `
+                <div class="flex items-center justify-between p-2 border rounded-lg">
+                    <div class="flex items-center gap-3">
+                        <img src="${l.sekil_url}" class="w-12 h-12 object-cover rounded">
+                        <div>
+                            <p class="font-bold text-sm">${l.basliq}</p>
+                            <p class="text-xs text-slate-500">${l.kateqoriya}</p>
+                        </div>
+                    </div>
+                    <button onclick="deleteLayihe(${l.id})" class="text-red-600 text-xs font-bold px-2">Sil</button>
+                </div>
+            `).join('') || '';
+        }
+
+        document.getElementById('layihe-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('l-btn');
+            btn.disabled = true;
+            btn.innerText = 'Yüklənir...';
+
+            const file = document.getElementById('l-sekil').files[0];
+            const cleanName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+            const fileName = `${Date.now()}_${cleanName}`;
+
+            const { error: uploadError } = await supabaseClient.storage.from('layihe-sekilleri').upload(fileName, file);
+            if (uploadError) {
+                alert('Şəkil yüklənmədi: ' + uploadError.message);
+                btn.disabled = false;
+                btn.innerText = 'Sayta Əlavə Et';
+                return;
+            }
+
+            const { data: { publicUrl } } = supabaseClient.storage.from('layihe-sekilleri').getPublicUrl(fileName);
+
+            await supabaseClient.from('layiheler').insert([{
+                basliq: document.getElementById('l-basliq').value,
+                kateqoriya: document.getElementById('l-kateqoriya').value,
+                sekil_url: publicUrl
+            }]);
+
+            document.getElementById('layihe-form').reset();
+            btn.disabled = false;
+            btn.innerText = 'Sayta Əlavə Et';
+            loadAdminData();
+        });
+
+        async function deleteMuraciet(id) {
+            if(confirm('Bu müraciəti silmək istəyirsiniz?')) {
+                await supabaseClient.from('muracietler').delete().eq('id', id);
+                loadAdminData();
+            }
+        }
+
+        async function deleteLayihe(id) {
+            if(confirm('Bu layihəni silmək istəyirsiniz?')) {
+                await supabaseClient.from('layiheler').delete().eq('id', id);
+                loadAdminData();
+            }
+        }
+
+        checkUser();
+    </script>
+</body>
+</html>
